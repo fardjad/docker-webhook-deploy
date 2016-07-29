@@ -1,0 +1,14 @@
+{
+  "name": "webhook-deploy",
+  "version": "0.1.0",
+  "description": "Deploys an app from a Git repository into a Docker container",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Fardjad Davari <public@fardjad.com>",
+  "license": "MIT",
+  "dependencies": {
+    "temp": "^0.8.3"
+  }
+}
