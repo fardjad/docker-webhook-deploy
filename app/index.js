@@ -22,7 +22,7 @@ if (!process.env.GIT_REPO_BRANCH) {
 temp.track()
 
 var seq = 0
-var jobs = 0
+var jobs = 1
 var running = false
 setInterval(function () {
   if (jobs === 0 || running) return

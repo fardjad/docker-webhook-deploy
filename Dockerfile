@@ -1,5 +1,9 @@
 FROM node:6.3.1
 
+MAINTAINER Fardjad Davari <public@fardjad.com>
+LABEL Description="Deploys an app from a Git repository into a Docker container"
+LABEL Version="0.1.1"
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -yq \
