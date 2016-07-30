@@ -1,31 +1,10 @@
-FROM node:6.3.1
+FROM alpine:3.4
 
 MAINTAINER Fardjad Davari <public@fardjad.com>
-LABEL Description="Deploys an app from a Git repository into a Docker container"
-LABEL Version="0.1.1"
+LABEL Description="An Alpine Linux based image that can clone a Git repository and execute a custom setup script upon receiving webhooks" Version="0.2.0"
 
-ENV DEBIAN_FRONTEND noninteractive
+ADD ./bootstrap.sh /tmp/
+ADD ./src /opt/webhook-deploy
+RUN chmod +x /tmp/bootstrap.sh && sync && /tmp/bootstrap.sh && rm tmp/bootstrap.sh
 
-RUN apt-get update && apt-get install -yq \
-    git \
-    locales \
-    bash \
-    openssh-client
-
-RUN dpkg-reconfigure locales && \
-    locale-gen C.UTF-8 && \
-    /usr/sbin/update-locale LANG=C.UTF-8
-
-ENV LC_ALL C.UTF-8
-
-COPY ssh_config /etc/ssh/ssh_config
-
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-COPY app/package.json /usr/src/app/
-RUN npm install
-COPY app /usr/src/app
-RUN chmod +x /usr/src/app/clone.sh
-
-CMD [ "npm", "start" ]
+CMD [ "/opt/webhook-deploy/webhook-deploy" ]
