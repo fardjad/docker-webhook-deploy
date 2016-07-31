@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+    webhook-deploy-nginx:
+        build: webhook-deploy-nginx
+        restart: always
+        ports:
+            - 3000:80/tcp
+        expose:
+            - "8000"
+        environment:
+            SSH_PRIVATE_KEY: |-
+                -----BEGIN RSA PRIVATE KEY-----
+                MIIEowIBAAKCAQEAo03K5sj5kefVi4Iu73WEGkMZDpQRRBIiGtAaFxA0/BcdceeP
+                kPmq3W6c+x3WB3puYp1lhY9QjHyf4M6gXVDydOlO+QfRMFs0vyRCq6rBTnr0Wddm
+                1uvCHxew8LmtynNHZtX6hJOuchlDQCMd8HDRq53GEmhiQlc1ByhZnLnMra/HsysP
+                Tv1zt7b2/hHbJiALozLezsjKKUfFYgAxeT4FJFfQuQFIEWJ53KEAopF0aKY34xT3
+                DICX73yrXMYJCb+n26CTRfgrHvBpnxCX3hBMvF+3H9Plit5fi9nTggkoPXWsGmza
+                TGrfeF2wYiX5p+yXNu8/A2rbouzuRU9aEme2fwIDAQABAoIBABBnYDzWLlT3iUNg
+                xISISkigZH7K5SsbI92L+ZBHL/4B971j3yTXIiXpFmVr21PX+rOhj5D0KElcZsDx
+                xeO/Ha5xwIg9E/MmuOyEYMVsEHaTh5e+DpYDNkuM7oNX23sXy7HVnRBpN0o90Ga7
+                wFD75uE1fC/dgr/wO6LoQjbUkRisg6/g6rU2IU4cGPFbwpZLyHGZxphPumuHfTcc
+                F4M5TKQ0uu1r0tHiRBivTsRQrvQAIKHHlDzuBocPX2qJjrMkN5I35W03ZRPeONwr
+                QSKpydTmJ8RJu5lIzk1sFyEqWLlsySehx94+BNUbFnT3vqX/pNyoqyni+1Rm6YXF
+                U66lfgECgYEAzJkroTmmjklOQVQPJp1ZKwYfQPoguxKDmmmVqNL2pnl4UUZct9hg
+                1x14njxiXCMlhs3dPeFewREle69hYV87RHVEBCErchq4bQ42F5GA9XiiMzOkMI2A
+                eMRxRN5hJw7SjZ9SuwcKLUP3vt4TyJjItwkrJs46ODHlge7ZSp9uUgECgYEAzFTA
+                iIcuXmf1Ip7yHztRovTIyktuUMxNFGYptfXKav6VGgmWDjwP6h6NKyYZmxLtTFLa
+                GHX8ay4xSq5wC840qwNMTHlXM3l9i/JYbNHhdSRb468nM5yel9ybJbFOelmlWHH6
+                ove2MWFFP/s55Av8Qv3yWeRxHHtlXUMK/j4dCH8CgYBXSaHLjwT3/15bkLlGCCta
+                p6n91rjQFv3+ir1G4XpJW9lxE0vLQ41NOU2UdL6iAHyqHnodRGFgjSgotJIfMLng
+                Ywc5m80lSTEVldKOC42xLF5G6elKrZP58hVBBH7+YtyBf0+Ua1R0K2MvEx/tnQFE
+                1ayLScCc6Oy5mmUp6QrwAQKBgFan8udz/TRIfmvqYODh9WNY0PcKOoTFwELQeQwU
+                a34o7e8W9a6fxlgSEOilxeJAiqb91ETfdOe3tWvowtge4bNNOMSOCW9pLNd3Ng0g
+                ja9ydg3/sG5xE8lv49R+d7vn3Pm/jP4kc/5JNGdIEmsmshtvO6LoARiFNJ3y2uys
+                Rv/dAoGBAJNNBjDY1XXVPfrsn7sQZBw/DXmPux4/5ZjLZyv1Jk1MIGEd7sUNK4Bn
+                AaVqAP+MDn7OWMjb4IGSIMlkzMK/0iH2iGzqjOIdyjRkmmzfagsWgBWAL9euwSzy
+                hiisvgd4gumBMCWUm+fe2+EpOa0PVAtZ8bm4eei1lCspjqewulEI
+                -----END RSA PRIVATE KEY-----
+            GIT_REPO_URL: git@gitlab:root/webapp.git
+            GIT_REPO_BRANCH: master
+            WEBHOOK_AUTH_TOKEN: 3260D0A2-A453-4780-A32F-B32C61CD19AC
+
+    gitlab:
+        ports:
+            - 8080:80/tcp
+            - 2222:22/tcp
+        image: gitlab/gitlab-ce:8.5.1-ce.0

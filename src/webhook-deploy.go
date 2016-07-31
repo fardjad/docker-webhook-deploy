@@ -158,9 +158,6 @@ func main() {
 	}
 
 	go processQueue()
-	// run cloneandsetup.sh upon start
-	jobs++
-	q.Push(&jobs)
 
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8000", nil)

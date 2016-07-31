@@ -24,13 +24,13 @@ server will only accept URL paths that end in `WEBHOOK_AUTH_TOKEN`.
 
 ## How it Works
 
-Webhook receiver server does the following when the container starts:
+Webhook receiver server listens on port 8000 and does the following upon 
+receiving webhooks:
 
 1. Clones the specified Git repository
 2. Checks out the specified branch
 3. Looks for **.webhook/setup** script within the cloned repository and 
    executes it
-4. Listens on port *8000* and repeats steps 1 through 3 upon receiving webhooks
 
 ## Notes
 
@@ -46,18 +46,9 @@ Webhook receiver server does the following when the container starts:
    the container
 8. Setup script should not start any blocking foreground processes
 9. It's highly recommended to use `nohup` to start background processes in setup 
-   script:
+   script
 
-        #!/bin/sh
-
-        # ...
-        cp my_command /usr/local/bin/my_command
-
-        if [ -f /var/run/my_command.pid ]; then
-            kill $(cat /var/run/my_command.pid)
-        fi
-        nohup my_command &>/dev/null &
-        echo $! > /var/run/my_command.pid
+(Take a look at example directory for a working setup)
 
 ## License
 
